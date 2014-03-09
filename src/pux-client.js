@@ -9,9 +9,7 @@ var _       = require('underscore')
 
 
 var defaults = {
-  hostname: 'eval.api.polestars.jp',
-  port: 8080,
-  path: '/webapi/face.do'
+  endPoint: 'http://eval.api.polestars.jp:8080/webapi/face.do'
 }
 
 var PuxClient = function (apiKey, overrides) {
@@ -21,8 +19,16 @@ var PuxClient = function (apiKey, overrides) {
 
 _.extend(PuxClient.prototype, {
 
-  authenticateFace: function (image) {
-
+  authenticateFaceBase64: function (b64Image) {
+    var data = { apiKey:      this.apiKey
+               , mode:        'verify'
+               , inputBase64: b64Image
+               }
+    request.post(this.options.endPoint, { form: data }, function (err, msg, response) {
+      console.log(response)
+    })
   }
-
 })
+
+
+module.exports = PuxClient
