@@ -11,10 +11,10 @@ var _           = require('underscore')
 
 var defaults = {
   endPoint: 'http://eval.api.polestars.jp:8080/webapi/face.do'
+, apiKey: process.env.PUX_API_KEY
 }
 
-var PuxClient = function (apiKey, overrides) {
-  this.apiKey = apiKey
+var PuxClient = function (overrides) {
   this.options = _.extend({}, defaults, overrides)
 }
 
@@ -23,7 +23,7 @@ _.extend(PuxClient.prototype, {
   authenticateFaceBase64: function (b64Image, options) {
     options = options || {}
     var self = this
-    var data = { apiKey:      this.apiKey
+    var data = { apiKey:      this.options.apiKey
                , mode:        'verify'
                , inputBase64: b64Image
                }
