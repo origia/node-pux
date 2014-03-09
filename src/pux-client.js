@@ -46,7 +46,8 @@ _.extend(PuxClient.prototype, {
   }
 
 , extractCandidate: function (result) {
-    if (!result.verificationFaceInfo[0].candidate) return null
+    if (!result.verificationFaceInfo ||
+        !result.verificationFaceInfo[0].candidate) return null
     var firstCandidate = result.verificationFaceInfo[0].candidate[0]
       , score = firstCandidate.score[0]
     if (score > 50) return firstCandidate.faceId[0]
